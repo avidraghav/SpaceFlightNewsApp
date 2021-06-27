@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/articlesFragment">
+    app:startDestination="@id/articlesListFragment">
 
     <fragment
-        android:id="@+id/articlesFragment"
-        android:name="com.example.spaceflightnewsapp.ui.ArticlesListFragment"
-        android:label="ArticlesFragment" >
+        android:id="@+id/searchArticleFragment"
+        android:name="com.example.spaceflightnewsapp.ui.SearchArticleFragment"
+        android:label="fragment_search_article"
+        tools:layout="@layout/fragment_search_article" >
         <action
-            android:id="@+id/action_articlesFragment_to_articleDisplayFragment"
+            android:id="@+id/action_searchArticleFragment_to_articleDisplayFragment"
+            app:destination="@id/articleDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articlesListFragment"
+        android:name="com.example.spaceflightnewsapp.ui.ArticlesListFragment"
+        android:label="fragment_articles_list"
+        tools:layout="@layout/fragment_articles_list" >
+        <action
+            android:id="@+id/action_articlesListFragment_to_articleDisplayFragment"
             app:destination="@id/articleDisplayFragment" />
     </fragment>
     <fragment
