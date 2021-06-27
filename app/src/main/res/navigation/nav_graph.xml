@@ -6,6 +6,14 @@
 
     <fragment
         android:id="@+id/articlesFragment"
-        android:name="com.example.spaceflightnewsapp.ui.ArticlesFragment"
-        android:label="ArticlesFragment" />
+        android:name="com.example.spaceflightnewsapp.ui.ArticlesListFragment"
+        android:label="ArticlesFragment" >
+        <action
+            android:id="@+id/action_articlesFragment_to_articleDisplayFragment"
+            app:destination="@id/articleDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDisplayFragment"
+        android:name="com.example.spaceflightnewsapp.ui.ArticleDisplayFragment"
+        android:label="ArticleDisplayFragment" />
 </navigation>
