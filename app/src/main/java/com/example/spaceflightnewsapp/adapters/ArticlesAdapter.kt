@@ -1,5 +1,6 @@
 package com.example.spaceflightnewsapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,7 +11,7 @@ import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
 
 
-class RecyclerViewAdapter  : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,6 +22,7 @@ class RecyclerViewAdapter  : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article: ArticlesResponseItem = differ.currentList[position]
         holder.bind(article)
+
     }
 
     override fun getItemCount() = differ.currentList.size
