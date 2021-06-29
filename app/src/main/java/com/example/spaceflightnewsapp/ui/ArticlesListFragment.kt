@@ -26,7 +26,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         binding = FragmentArticlesListBinding.bind(view)
         setupRecyclerView()
 
-        val repository = AppRepository(RetrofitInstance.api)
         viewModel = (activity as MainActivity).viewModel
 
         viewModel.articlesList.observe(viewLifecycleOwner, Observer { response ->

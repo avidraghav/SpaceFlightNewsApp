@@ -37,6 +37,9 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvTitle.text = article.title
                 tvDescription.text = article.summary
                 tvPublishedAt.text = article.publishedAt
+                containerLayout.setOnClickListener {
+                    article.url
+                }
             }
         }
     }
