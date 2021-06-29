@@ -1,5 +1,7 @@
 package com.example.spaceflightnewsapp.models
 
+import java.io.Serializable
+
 data class ArticlesResponseItem(
     val events: List<Any>,
     val featured: Boolean,
@@ -12,4 +14,4 @@ data class ArticlesResponseItem(
     val title: String,
     val updatedAt: String,
     val url: String
-)
+): Serializable

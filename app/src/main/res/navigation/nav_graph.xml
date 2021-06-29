@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_search_article" >
         <action
             android:id="@+id/action_searchArticleFragment_to_articleDisplayFragment"
-            app:destination="@id/articleDisplayFragment" />
+            app:destination="@id/articleDisplayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/articlesListFragment"
@@ -21,10 +25,18 @@
         tools:layout="@layout/fragment_articles_list" >
         <action
             android:id="@+id/action_articlesListFragment_to_articleDisplayFragment"
-            app:destination="@id/articleDisplayFragment" />
+            app:destination="@id/articleDisplayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/articleDisplayFragment"
         android:name="com.example.spaceflightnewsapp.ui.ArticleDisplayFragment"
-        android:label="ArticleDisplayFragment" />
+        android:label="ArticleDisplayFragment" >
+        <argument
+            android:name="article"
+            app:argType="com.example.spaceflightnewsapp.models.ArticlesResponseItem" />
+    </fragment>
 </navigation>

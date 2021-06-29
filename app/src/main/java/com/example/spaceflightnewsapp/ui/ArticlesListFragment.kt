@@ -3,8 +3,10 @@ package com.example.spaceflightnewsapp.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.adapters.ArticlesAdapter
@@ -27,6 +29,17 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         setupRecyclerView()
 
         viewModel = (activity as MainActivity).viewModel
+
+        articlesAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_articlesListFragment_to_articleDisplayFragment,
+                bundle
+            )
+        }
+
 
         viewModel.articlesList.observe(viewLifecycleOwner, Observer { response ->
             when(response) {

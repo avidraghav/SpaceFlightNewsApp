@@ -1,14 +1,19 @@
 package com.example.spaceflightnewsapp.adapters
 
+import android.app.Activity
+import android.app.Application
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
+import com.example.spaceflightnewsapp.ui.MainActivity
 
 
 class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
@@ -29,6 +34,7 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
 
 
     class ViewHolder(private val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root) {
+        companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
 
         fun bind(article: ArticlesResponseItem) {
             binding.apply {
@@ -37,11 +43,16 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvTitle.text = article.title
                 tvDescription.text = article.summary
                 tvPublishedAt.text = article.publishedAt
-                containerLayout.setOnClickListener {
-                    article.url
+                itemView.setOnClickListener {
+                    onItemClickListener?.let { it(article) }
                 }
             }
         }
+    }
+
+
+    fun setOnItemClickListener(listener: (ArticlesResponseItem) -> Unit) {
+        ViewHolder.onItemClickListener = listener
     }
     private val differCallBack = object : DiffUtil.ItemCallback<ArticlesResponseItem>(){
         override fun areItemsTheSame(
