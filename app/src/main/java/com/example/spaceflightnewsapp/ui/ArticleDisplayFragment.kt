@@ -1,8 +1,10 @@
 package com.example.spaceflightnewsapp.ui
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -30,6 +32,16 @@ class ArticleDisplayFragment : Fragment(R.layout.fragment_article_display) {
                 loadUrl(article.url)
             }catch (e : Exception){
                 Toast.makeText(activity,e.toString(),Toast.LENGTH_SHORT).show()
+            }
+            webViewClient = object : WebViewClient(){
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    binding.progressBar.visibility=View.VISIBLE
+                    super.onPageStarted(view, url, favicon)
+                }
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.progressBar.visibility=View.GONE
+                    super.onPageFinished(view, url)
+                }
             }
 
         }
