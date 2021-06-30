@@ -3,16 +3,19 @@ package com.example.spaceflightnewsapp.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AbsListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.adapters.ArticlesAdapter
 import com.example.spaceflightnewsapp.databinding.FragmentArticlesListBinding
 import com.example.spaceflightnewsapp.network.RetrofitInstance
 import com.example.spaceflightnewsapp.repository.AppRepository
+import com.example.spaceflightnewsapp.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.spaceflightnewsapp.utils.Resource
 
 class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
@@ -20,6 +23,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     lateinit var viewModel: AppViewModel
     lateinit var articlesAdapter: ArticlesAdapter
     private lateinit var binding: FragmentArticlesListBinding
+    //var isLoading = false
     private val TAG ="ArticlesListFragment"
 
 
@@ -40,13 +44,33 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             )
         }
 
+//        binding.rvArticles.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+//
+//                          val visibleItemCount =layoutManager.childCount
+//                          val pathVisibleItem = layoutManager.findFirstVisibleItemPosition()
+//                          val totalItems = layoutManager.itemCount
+//
+//                          if(!isLoading){
+//                              if(visibleItemCount + pathVisibleItem >= totalItems){
+//                                  viewModel.getArticlesList()
+//                                  isLoading=false
+//                              }
+//                          }
+//
+//
+//
+//            }
+//        })
 
         viewModel.articlesList.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        articlesAdapter.differ.submitList(it)
+                        articlesAdapter.differ.submitList(it.toList())
                     }
                 }
                 is Resource.Error -> {
@@ -63,18 +87,55 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     }
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
-
+        isLoading = false
     }
 
     private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
     }
+
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
+
+    val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+            val isNotAtBeginning = firstVisibleItemPosition >= 0
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
+                    isTotalMoreThanVisible && isScrolling
+            if(shouldPaginate) {
+                viewModel.getArticlesList()
+                isScrolling = false
+            } else {
+                binding.rvArticles.setPadding(0, 0, 0, 0)
+            }
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
         articlesAdapter = ArticlesAdapter()
         binding.rvArticles.apply {
             adapter = articlesAdapter
             layoutManager = LinearLayoutManager(activity)
-            //addOnScrollListener(this@ArticlesFragment.scrollListener)
+            addOnScrollListener(this@ArticlesListFragment.scrollListener)
         }
     }
 }

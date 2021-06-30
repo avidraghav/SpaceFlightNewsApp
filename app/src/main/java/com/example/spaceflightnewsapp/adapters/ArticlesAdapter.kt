@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.spaceflightnewsapp.databinding.DummyBinding
+import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
 import com.example.spaceflightnewsapp.ui.MainActivity
@@ -38,7 +38,9 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
 
         fun bind(article: ArticlesResponseItem) {
             binding.apply {
-                Glide.with(root).load(article.imageUrl).into(ivArticleImage)
+                Glide.with(root)
+                    .load(article.imageUrl)
+                    .into(ivArticleImage)
                 tvSource.text = article.newsSite
                 tvTitle.text = article.title
                 tvDescription.text = article.summary

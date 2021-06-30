@@ -13,15 +13,20 @@ class AppViewModel(
     val repository : AppRepository
 ) : ViewModel() {
 
-   val articlesList : MutableLiveData<Resource<ArticlesResponse>> = MutableLiveData()
+    val articlesList : MutableLiveData<Resource<ArticlesResponse>> = MutableLiveData()
+    var articlesResponse : ArticlesResponse? = null
+    var skipArticle =0
+
     val searchArticleList : MutableLiveData<Resource<ArticlesResponse>> = MutableLiveData()
+    val searchArticleResponse : ArticlesResponse? = null
+
     init {
         getArticlesList()
     }
 
     fun getArticlesList()= viewModelScope.launch {
         articlesList.postValue(Resource.Loading())
-        val response = repository.getArticles()
+        val response = repository.getArticles(skipArticle)
         articlesList.postValue(handleArticlesResponse(response))
     }
     fun getSearchArticleList(searchQuery : String) = viewModelScope.launch {
@@ -33,7 +38,16 @@ class AppViewModel(
     private fun handleArticlesResponse(response: Response<ArticlesResponse>): Resource<ArticlesResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
-                return Resource.Success(it)
+                skipArticle+=10
+                if(articlesResponse == null){
+                    articlesResponse = it
+                }
+                else{
+                    val oldArticles = articlesResponse
+                    val newArticles =it
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(articlesResponse?: it)
             }
         }
             return Resource.Error(response.message())
