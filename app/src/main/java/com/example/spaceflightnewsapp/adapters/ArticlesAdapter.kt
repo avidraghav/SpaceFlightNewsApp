@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.spaceflightnewsapp.databinding.DummyBinding
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
 import com.example.spaceflightnewsapp.ui.MainActivity
 
 
 class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding = ItemArticlePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
