@@ -17,7 +17,9 @@ interface SpaceFlightAPI {
     @GET("articles")
     suspend fun searchArticles(
         @Query("_title_contains")
-        searchQuery : String
+        searchQuery : String,
+        @Query("_start")
+        articlesToSkip : Int = 0
     ): Response<ArticlesResponse>
 
 }

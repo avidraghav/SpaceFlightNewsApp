@@ -41,6 +41,7 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 Glide.with(root)
                     .load(article.imageUrl)
                     .into(ivArticleImage)
+
                 tvSource.text = article.newsSite
                 tvTitle.text = article.title
                 tvDescription.text = article.summary

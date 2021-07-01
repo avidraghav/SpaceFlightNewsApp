@@ -44,26 +44,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             )
         }
 
-//        binding.rvArticles.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//
-//                          val visibleItemCount =layoutManager.childCount
-//                          val pathVisibleItem = layoutManager.findFirstVisibleItemPosition()
-//                          val totalItems = layoutManager.itemCount
-//
-//                          if(!isLoading){
-//                              if(visibleItemCount + pathVisibleItem >= totalItems){
-//                                  viewModel.getArticlesList()
-//                                  isLoading=false
-//                              }
-//                          }
-//
-//
-//
-//            }
-//        })
 
         viewModel.articlesList.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
