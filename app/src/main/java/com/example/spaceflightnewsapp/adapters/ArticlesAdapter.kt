@@ -15,6 +15,9 @@ import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
 import com.example.spaceflightnewsapp.ui.MainActivity
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.util.*
 
 
 class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
@@ -45,7 +48,13 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvSource.text = article.newsSite
                 tvTitle.text = article.title
                 tvDescription.text = article.summary
-                tvPublishedAt.text = article.publishedAt
+                val date = article.publishedAt.subSequence(0,11).subSequence(8,10).toString()
+                val month = article.publishedAt.subSequence(0,11).subSequence(5,7).toString()
+                val year = article.publishedAt.subSequence(0,11).subSequence(0,4).toString()
+                tvPublishedAt.text = date+"/"+month+"/"+year
+                 Log.e("info",date)
+                 Log.e("info",month)
+                 Log.e("info",year)
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }
                 }

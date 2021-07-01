@@ -51,8 +51,9 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
                        viewModel.getSearchArticleList(it.toString())
                    }
                     if(it.toString().isEmpty()){
-                        viewModel.searchArticleResponse?.clear()
                         viewModel.skipSearchArticle=0
+                        viewModel.searchArticleResponse?.clear()
+                        viewModel.getSearchArticleList(it.toString())
                     }
                 }
             }
