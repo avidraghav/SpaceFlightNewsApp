@@ -1,17 +1,25 @@
 package com.example.spaceflightnewsapp.ui
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spaceflightnewsapp.models.ArticlesResponse
 import com.example.spaceflightnewsapp.repository.AppRepository
+import com.example.spaceflightnewsapp.utils.AppApplication
 import com.example.spaceflightnewsapp.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class AppViewModel(
+    app : Application,
     val repository : AppRepository
-) : ViewModel() {
+) : AndroidViewModel(app) {
 
     val articlesList : MutableLiveData<Resource<ArticlesResponse>> = MutableLiveData()
     var articlesResponse : ArticlesResponse? = null
@@ -69,6 +77,21 @@ class AppViewModel(
             }
         }
         return Resource.Error(response.message())
+    }
+
+    private fun hasInternetConnection(): Boolean {
+        val connectivityManager = getApplication<AppApplication>().getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+
+            val activeNetwork = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+            return when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
     }
 
 

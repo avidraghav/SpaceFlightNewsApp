@@ -52,9 +52,6 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 val month = article.publishedAt.subSequence(0,11).subSequence(5,7).toString()
                 val year = article.publishedAt.subSequence(0,11).subSequence(0,4).toString()
                 tvPublishedAt.text = date+"/"+month+"/"+year
-                 Log.e("info",date)
-                 Log.e("info",month)
-                 Log.e("info",year)
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }
                 }

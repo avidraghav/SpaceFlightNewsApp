@@ -49,6 +49,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             when(response) {
                 is Resource.Success -> {
                     hideProgressBar()
+                    hideErrorMessage()
                     response.data?.let {
                         articlesAdapter.differ.submitList(it.toList())
                     }
@@ -56,7 +57,8 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Log.e(TAG, "An error occured: $message")
+                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
+                        showErrorMessage(message)
                     }
                 }
                 is Resource.Loading -> {
@@ -64,6 +66,9 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                 }
             }
         })
+        binding.btnRetry.setOnClickListener {
+            viewModel.getArticlesList()
+        }
     }
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
@@ -74,7 +79,17 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
     }
+    private fun hideErrorMessage() {
+        binding.itemErrorMessage.visibility = View.INVISIBLE
+        isError = false
+    }
+    private fun showErrorMessage(message: String) {
+        binding.itemErrorMessage.visibility = View.VISIBLE
+        binding.tvErrorMessage.text = message
+        isError = true
+    }
 
+    var isError = false
     var isLoading = false
     var isLastPage = false
     var isScrolling = false
