@@ -15,6 +15,7 @@ import com.example.spaceflightnewsapp.utils.AppApplication
 import com.example.spaceflightnewsapp.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class AppViewModel(
     app : Application,
@@ -34,14 +35,10 @@ class AppViewModel(
     }
 
     fun getArticlesList()= viewModelScope.launch {
-        articlesList.postValue(Resource.Loading())
-        val response = repository.getArticles(skipArticle)
-        articlesList.postValue(handleArticlesResponse(response))
+       safeGetArticleApiCall()
     }
     fun getSearchArticleList(searchQuery : String) = viewModelScope.launch {
-        searchArticleList.postValue(Resource.Loading())
-        val response = repository.searchArticle(searchQuery,skipSearchArticle)
-        searchArticleList.postValue(handleSearchResponse(response))
+       safeSearchArticleApiCall(searchQuery)
     }
 
     private fun handleArticlesResponse(response: Response<ArticlesResponse>): Resource<ArticlesResponse> {
@@ -79,6 +76,42 @@ class AppViewModel(
         return Resource.Error(response.message())
     }
 
+    private suspend fun safeSearchArticleApiCall(searchQuery: String){
+        try {
+            if(hasInternetConnection()){
+                searchArticleList.postValue(Resource.Loading())
+                val response = repository.searchArticle(searchQuery,skipSearchArticle)
+                searchArticleList.postValue(handleArticlesResponse(response))
+            }
+            else{
+                searchArticleList.postValue(Resource.Error("No Internet Connection"))
+            }
+        }catch (t : Throwable){
+            when(t) {
+                is IOException -> searchArticleList.postValue(Resource.Error("Network Failure"))
+                else -> searchArticleList.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+
+    }
+    private suspend fun safeGetArticleApiCall(){
+        try {
+            if(hasInternetConnection()){
+                articlesList.postValue(Resource.Loading())
+                val response = repository.getArticles(skipArticle)
+                articlesList.postValue(handleSearchResponse(response))
+            }
+            else{
+                articlesList.postValue(Resource.Error("No Internet Connection"))
+            }
+        }catch (t : Throwable){
+            when(t) {
+                is IOException -> articlesList.postValue(Resource.Error("Network Failure"))
+                else -> articlesList.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+
+    }
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<AppApplication>().getSystemService(
             Context.CONNECTIVITY_SERVICE

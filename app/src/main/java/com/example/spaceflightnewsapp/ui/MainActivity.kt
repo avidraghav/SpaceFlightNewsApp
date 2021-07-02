@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar : Toolbar
 
     val viewModel: AppViewModel by viewModels {
-        AppViewModelFactory(AppRepository(RetrofitInstance.api))
+        AppViewModelFactory(application,AppRepository(RetrofitInstance.api))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

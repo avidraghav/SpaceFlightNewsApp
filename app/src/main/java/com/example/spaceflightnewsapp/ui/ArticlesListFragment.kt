@@ -56,6 +56,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                 }
                 is Resource.Error -> {
                     hideProgressBar()
+                    Log.d(TAG,"inside failure")
                     response.message?.let { message ->
                         Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
                         showErrorMessage(message)
