@@ -1,7 +1,6 @@
 package com.example.spaceflightnewsapp.network
 
-import com.example.spaceflightnewsapp.models.ArticlesResponse
-import com.example.spaceflightnewsapp.models.ArticlesResponseItem
+import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

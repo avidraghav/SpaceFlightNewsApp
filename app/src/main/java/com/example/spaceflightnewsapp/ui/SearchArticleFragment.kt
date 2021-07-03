@@ -1,4 +1,5 @@
 package com.example.spaceflightnewsapp.ui
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,7 +25,7 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
     lateinit var viewModel: AppViewModel
     lateinit var articlesAdapter: ArticlesAdapter
     private lateinit var binding: FragmentSearchArticleBinding
-    private val TAG ="SearchArticleFragment"
+    private val TAG = "SearchArticleFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,23 +43,23 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
             )
         }
         // Search Articles functionality implementation
-        var job : Job? = null
+        var job: Job? = null
         binding.etSearch.addTextChangedListener {
             job?.cancel()
             job = MainScope().launch {
                 delay(DELAY_TIME)
                 it.let {
-                   if(it.toString().isNotEmpty()){
-                       viewModel.getSearchArticleList(it.toString())
-                       Log.d(TAG,"inside is Notempty")
-                   }
+                    if (it.toString().isNotEmpty()) {
+                        viewModel.getSearchArticleList(it.toString())
+                        Log.d(TAG, "inside is Notempty")
+                    }
                 }
             }
         }
         viewModel.searchArticleList.observe(viewLifecycleOwner, Observer { response ->
-            when(response) {
+            when (response) {
                 is Resource.Success -> {
-                    Log.d(TAG,"inside success")
+                    Log.d(TAG, "inside success")
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let {
@@ -67,14 +68,15 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
                 }
                 is Resource.Error -> {
                     hideProgressBar()
-                    Log.d(TAG,"inside failure")
+                    Log.d(TAG, "inside failure")
                     response.message?.let { message ->
-                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG)
+                            .show()
                         showErrorMessage(message)
                     }
                 }
                 is Resource.Loading -> {
-                    Log.d(TAG,"inside loading")
+                    Log.d(TAG, "inside loading")
                     showProgressBar()
                 }
             }
@@ -87,18 +89,22 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
             }
         }
     }
+
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
     }
+
     private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true
     }
+
     private fun hideErrorMessage() {
         binding.itemErrorMessage.visibility = View.INVISIBLE
         isError = false
     }
+
     private fun showErrorMessage(message: String) {
         binding.itemErrorMessage.visibility = View.VISIBLE
         binding.tvErrorMessage.text = message
@@ -125,8 +131,8 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
-            Log.d(TAG,shouldPaginate.toString())
-            if(shouldPaginate) {
+            Log.d(TAG, shouldPaginate.toString())
+            if (shouldPaginate) {
                 viewModel.getSearchArticleList(binding.etSearch.text.toString())
                 isScrolling = false
             } else {
@@ -136,11 +142,12 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
     }
+
     private fun setupRecyclerView() {
         articlesAdapter = ArticlesAdapter()
         binding.rvSearchArticles.apply {

@@ -1,6 +1,5 @@
 package com.example.spaceflightnewsapp.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,12 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
-import com.example.spaceflightnewsapp.models.ArticlesResponseItem
+import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_INPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -52,9 +49,7 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvDescription.text = article.summary
 
                 val date = LocalDateTime.parse(article.publishedAt, inputFormatter)
-                val formattedDate = outputFormatter.format(date)
-
-                tvPublishedAt.text = formattedDate.toString()
+                tvPublishedAt.text =  outputFormatter.format(date).toString()
 
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }

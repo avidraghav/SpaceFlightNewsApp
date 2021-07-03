@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item
-    android:id="@+id/item1"
-    android:title="1nfjfn"
-    />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/github_profile"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Github Profile - avidRaghav" />
+    <item
+        android:id="@+id/linkedin_profile"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Connect on Linkedin" />
+    <item
+        android:id="@+id/rate_on_playstore"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Rate Space News" />
+
 
 </menu>

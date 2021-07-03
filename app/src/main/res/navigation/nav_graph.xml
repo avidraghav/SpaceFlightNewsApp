@@ -34,9 +34,9 @@
     <fragment
         android:id="@+id/articleDisplayFragment"
         android:name="com.example.spaceflightnewsapp.ui.ArticleDisplayFragment"
-        android:label="ArticleDisplayFragment" >
+        android:label="ArticleDisplayFragment">
         <argument
             android:name="article"
-            app:argType="com.example.spaceflightnewsapp.models.ArticlesResponseItem" />
+            app:argType="com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem" />
     </fragment>
 </navigation>

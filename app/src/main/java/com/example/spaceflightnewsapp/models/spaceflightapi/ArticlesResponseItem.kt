@@ -1,4 +1,4 @@
-package com.example.spaceflightnewsapp.models
+package com.example.spaceflightnewsapp.models.spaceflightapi
 
 import java.io.Serializable
 

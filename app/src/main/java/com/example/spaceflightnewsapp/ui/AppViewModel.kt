@@ -4,12 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spaceflightnewsapp.models.ArticlesResponse
+import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponse
 import com.example.spaceflightnewsapp.repository.AppRepository
 import com.example.spaceflightnewsapp.utils.AppApplication
 import com.example.spaceflightnewsapp.utils.Resource
@@ -39,6 +37,43 @@ class AppViewModel(
     }
     fun getSearchArticleList(searchQuery : String) = viewModelScope.launch {
        safeSearchArticleApiCall(searchQuery)
+    }
+
+    private suspend fun safeSearchArticleApiCall(searchQuery: String){
+        try {
+            if(hasInternetConnection()){
+                searchArticleList.postValue(Resource.Loading())
+                val response = repository.searchArticle(searchQuery,skipSearchArticle)
+                searchArticleList.postValue(handleSearchResponse(response))
+            }
+            else{
+                searchArticleList.postValue(Resource.Error("No Internet Connection"))
+            }
+        }catch (t : Throwable){
+            when(t) {
+                is IOException -> searchArticleList.postValue(Resource.Error("Network Failure"))
+                else -> searchArticleList.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+
+    }
+    private suspend fun safeGetArticleApiCall(){
+        try {
+            if(hasInternetConnection()){
+                articlesList.postValue(Resource.Loading())
+                val response = repository.getArticles(skipArticle)
+                articlesList.postValue(handleArticlesResponse(response))
+            }
+            else{
+                articlesList.postValue(Resource.Error("No Internet Connection"))
+            }
+        }catch (t : Throwable){
+            when(t) {
+                is IOException -> articlesList.postValue(Resource.Error("Network Failure"))
+                else -> articlesList.postValue(Resource.Error("Conversion Error"))
+            }
+        }
+
     }
 
     private fun handleArticlesResponse(response: Response<ArticlesResponse>): Resource<ArticlesResponse> {
@@ -76,42 +111,7 @@ class AppViewModel(
         return Resource.Error(response.message())
     }
 
-    private suspend fun safeSearchArticleApiCall(searchQuery: String){
-        try {
-            if(hasInternetConnection()){
-                searchArticleList.postValue(Resource.Loading())
-                val response = repository.searchArticle(searchQuery,skipSearchArticle)
-                searchArticleList.postValue(handleArticlesResponse(response))
-            }
-            else{
-                searchArticleList.postValue(Resource.Error("No Internet Connection"))
-            }
-        }catch (t : Throwable){
-            when(t) {
-                is IOException -> searchArticleList.postValue(Resource.Error("Network Failure"))
-                else -> searchArticleList.postValue(Resource.Error("Conversion Error"))
-            }
-        }
 
-    }
-    private suspend fun safeGetArticleApiCall(){
-        try {
-            if(hasInternetConnection()){
-                articlesList.postValue(Resource.Loading())
-                val response = repository.getArticles(skipArticle)
-                articlesList.postValue(handleSearchResponse(response))
-            }
-            else{
-                articlesList.postValue(Resource.Error("No Internet Connection"))
-            }
-        }catch (t : Throwable){
-            when(t) {
-                is IOException -> articlesList.postValue(Resource.Error("Network Failure"))
-                else -> articlesList.postValue(Resource.Error("Conversion Error"))
-            }
-        }
-
-    }
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<AppApplication>().getSystemService(
             Context.CONNECTIVITY_SERVICE
