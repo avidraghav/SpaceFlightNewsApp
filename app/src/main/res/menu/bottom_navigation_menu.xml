@@ -4,7 +4,8 @@
     <item
         android:id="@+id/articlesListFragment"
         android:title="Latest News"
-        android:icon="@drawable/ic_baseline_new_24"/>
+        android:icon="@drawable/ic_baseline_new_24"
+        />
     <item
         android:id="@+id/searchArticleFragment"
         android:title="Search"

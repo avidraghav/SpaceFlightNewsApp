@@ -15,6 +15,7 @@ import com.example.spaceflightnewsapp.adapters.ArticlesAdapter
 import com.example.spaceflightnewsapp.databinding.FragmentArticlesListBinding
 import com.example.spaceflightnewsapp.databinding.FragmentSearchArticleBinding
 import com.example.spaceflightnewsapp.utils.Constants
+import com.example.spaceflightnewsapp.utils.Constants.Companion.DELAY_TIME
 import com.example.spaceflightnewsapp.utils.Resource
 import kotlinx.coroutines.*
 
@@ -45,7 +46,7 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
         binding.etSearch.addTextChangedListener {
             job?.cancel()
             job = MainScope().launch {
-                delay(500L)
+                delay(DELAY_TIME)
                 it.let {
                    if(it.toString().isNotEmpty()){
                        viewModel.getSearchArticleList(it.toString())

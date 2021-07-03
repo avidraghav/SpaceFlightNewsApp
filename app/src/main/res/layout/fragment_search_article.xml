@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:hint="Search..."
         android:textColor="#fff"
-        android:textColorHint="@color/colorPrimary"
+        android:textColorHint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

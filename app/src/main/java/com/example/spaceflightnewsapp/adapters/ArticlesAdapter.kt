@@ -1,26 +1,26 @@
 package com.example.spaceflightnewsapp.adapters
 
-import android.app.Activity
-import android.app.Application
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.ArticlesResponseItem
-import com.example.spaceflightnewsapp.ui.MainActivity
+import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_INPUT_FORMAT
+import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 
 
 class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding = ItemArticlePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -40,6 +40,8 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
         companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
 
         fun bind(article: ArticlesResponseItem) {
+            val inputFormatter = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT, Locale.ENGLISH)
+            val outputFormatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT, Locale.ENGLISH)
             binding.apply {
                 Glide.with(root)
                     .load(article.imageUrl)
@@ -48,10 +50,12 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvSource.text = article.newsSite
                 tvTitle.text = article.title
                 tvDescription.text = article.summary
-                val date = article.publishedAt.subSequence(0,11).subSequence(8,10).toString()
-                val month = article.publishedAt.subSequence(0,11).subSequence(5,7).toString()
-                val year = article.publishedAt.subSequence(0,11).subSequence(0,4).toString()
-                tvPublishedAt.text = date+"/"+month+"/"+year
+
+                val date = LocalDateTime.parse(article.publishedAt, inputFormatter)
+                val formattedDate = outputFormatter.format(date)
+
+                tvPublishedAt.text = formattedDate.toString()
+
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }
                 }

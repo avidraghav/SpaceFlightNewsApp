@@ -2,7 +2,10 @@ package com.example.spaceflightnewsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -16,6 +19,7 @@ import com.example.spaceflightnewsapp.repository.AppRepository
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     lateinit var toolbar : Toolbar
+    lateinit var toggle : ActionBarDrawerToggle
 
     val viewModel: AppViewModel by viewModels {
         AppViewModelFactory(application,AppRepository(RetrofitInstance.api))
@@ -27,8 +31,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
            binding.bottomNavigationView.setupWithNavController(findNavController(R.id.navHostFragment))
 
-         toolbar = binding.tbMain
-         toolbar.setTitle(R.string.app_name)
-         setSupportActionBar(toolbar)
+          toggle = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
+          binding.drawerLayout.addDrawerListener(toggle)
+          toggle.syncState()
+          supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+//         toolbar = binding.tbMain
+//         toolbar.setTitle(R.string.app_name)
+//         setSupportActionBar(toolbar)
+         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.navMenu.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.item1 -> Toast.makeText(this,"janf",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
