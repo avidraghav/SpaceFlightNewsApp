@@ -1,6 +1,5 @@
 package com.example.spaceflightnewsapp.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem
-import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_INPUT_FORMAT
+import com.example.spaceflightnewsapp.utils.Constants.Companion.ARTICLE_DATE_INPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -38,7 +37,7 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
         companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
 
         fun bind(article: ArticlesResponseItem) {
-            val inputFormatter = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT, Locale.ENGLISH)
+            val inputFormatter = DateTimeFormatter.ofPattern(ARTICLE_DATE_INPUT_FORMAT, Locale.ENGLISH)
             val outputFormatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT, Locale.ENGLISH)
             binding.apply {
                 Glide.with(root)
