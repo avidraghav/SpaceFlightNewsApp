@@ -10,5 +10,9 @@
         android:id="@+id/searchArticleFragment"
         android:title="Search"
         android:icon="@drawable/ic_baseline_search_24"/>
+    <item
+        android:id="@+id/launchesListFragment"
+        android:title="Launches"
+        android:icon="@drawable/ic_launch"/>
 
 </menu>

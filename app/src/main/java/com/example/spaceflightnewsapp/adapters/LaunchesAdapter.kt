@@ -1,6 +1,5 @@
 package com.example.spaceflightnewsapp.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
-import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem
+import com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponseItem
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_INPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
 import java.time.LocalDateTime
@@ -17,7 +16,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
+class LaunchesAdapter  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
 
 
 
@@ -27,53 +26,53 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article: ArticlesResponseItem = differ.currentList[position]
-        holder.bind(article)
+        val launch: LaunchLibraryResponseItem = differ.currentList[position]
+        holder.bind(launch)
     }
 
     override fun getItemCount() = differ.currentList.size
 
 
     class ViewHolder(private val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root) {
-        companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
+        companion object{ var onItemClickListener : ((LaunchLibraryResponseItem) -> Unit)? = null}
 
-        fun bind(article: ArticlesResponseItem) {
-            val inputFormatter = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT, Locale.ENGLISH)
+        fun bind(launch: LaunchLibraryResponseItem) {
+            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
             val outputFormatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT, Locale.ENGLISH)
             binding.apply {
                 Glide.with(root)
-                    .load(article.imageUrl)
+                    .load(launch.image)
                     .placeholder(R.drawable.icon)
                     .error(R.drawable.icon)
                     .into(ivArticleImage)
 
-                tvSource.text = article.newsSite
-                tvTitle.text = article.title
-                tvDescription.text = article.summary
+                tvSource.text = launch.net
+                tvTitle.text = launch.name
+                tvDescription.text = launch.slug
 
-                val date = LocalDateTime.parse(article.publishedAt, inputFormatter)
-                tvPublishedAt.text =  outputFormatter.format(date).toString()
+                val date = LocalDateTime.parse(launch.net, inputFormatter)
+               tvPublishedAt.text =  outputFormatter.format(date).toString()
 
                 itemView.setOnClickListener {
-                    onItemClickListener?.let { it(article) }
+                    onItemClickListener?.let { it(launch) }
                 }
             }
         }
     }
 
 
-    fun setOnItemClickListener(listener: (ArticlesResponseItem) -> Unit) {
+    fun setOnItemClickListener(listener: (LaunchLibraryResponseItem) -> Unit) {
         ViewHolder.onItemClickListener = listener
     }
-    private val differCallBack = object : DiffUtil.ItemCallback<ArticlesResponseItem>(){
+    private val differCallBack = object : DiffUtil.ItemCallback<LaunchLibraryResponseItem>(){
         override fun areItemsTheSame(
-            oldItem: ArticlesResponseItem, newItem: ArticlesResponseItem
+            oldItem: LaunchLibraryResponseItem, newItem: LaunchLibraryResponseItem
         ): Boolean {
             return oldItem.url == newItem.url
         }
 
         override fun areContentsTheSame(
-            oldItem: ArticlesResponseItem, newItem: ArticlesResponseItem
+            oldItem: LaunchLibraryResponseItem, newItem: LaunchLibraryResponseItem
         ): Boolean {
             return oldItem == newItem
         }

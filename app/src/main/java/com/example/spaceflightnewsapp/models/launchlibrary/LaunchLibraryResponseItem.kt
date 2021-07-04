@@ -1,6 +1,6 @@
 package com.example.spaceflightnewsapp.models.launchlibrary
 
-data class Result(
+data class LaunchLibraryResponseItem(
     val failreason: String,
     val hashtag: Any,
     val holdreason: String,

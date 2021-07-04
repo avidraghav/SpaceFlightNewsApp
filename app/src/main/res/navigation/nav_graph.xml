@@ -39,4 +39,8 @@
             android:name="article"
             app:argType="com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem" />
     </fragment>
+    <fragment
+        android:id="@+id/launchesListFragment"
+        android:name="com.example.spaceflightnewsapp.ui.LaunchesListFragment"
+        android:label="LaunchesListFragment" />
 </navigation>
