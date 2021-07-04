@@ -50,7 +50,9 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let {
-                        launchesAdapter.differ.submitList(it.results)
+                        launchesAdapter.differ.submitList(it.results.toList())
+                       //isLastPage = it.next.equals(null)
+                        Log.e(TAG,it.results.toString())
                     }
                 }
                 is Resource.Error -> {
@@ -74,7 +76,6 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
         binding.paginationProgressBar.visibility = View.INVISIBLE
         isLoading = false
     }
-
     private fun showProgressBar() {
         binding.paginationProgressBar.visibility = View.VISIBLE
         isLoading = true

@@ -1,48 +1,82 @@
 package com.example.spaceflightnewsapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ActivityMainBinding
 import com.example.spaceflightnewsapp.network.RetrofitInstance
-
 import com.example.spaceflightnewsapp.repository.AppRepository
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
-    lateinit var toolbar : Toolbar
-    lateinit var toggle : ActionBarDrawerToggle
+    lateinit var binding: ActivityMainBinding
+    lateinit var toolbar: Toolbar
+    lateinit var toggle: ActionBarDrawerToggle
 
     val viewModel: AppViewModel by viewModels {
-        AppViewModelFactory(application,AppRepository(RetrofitInstance.api_spaceflight,RetrofitInstance.api_launchlibrary))
+        AppViewModelFactory(
+            application,
+            AppRepository(RetrofitInstance.api_spaceflight, RetrofitInstance.api_launchlibrary)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-           binding.bottomNavigationView.setupWithNavController(findNavController(R.id.navHostFragment))
+        binding.bottomNavigationView.setupWithNavController(findNavController(R.id.navHostFragment))
 
-          toggle = ActionBarDrawerToggle(this,binding.drawerLayout,R.string.open,R.string.close)
-          binding.drawerLayout.addDrawerListener(toggle)
-          toggle.syncState()
-          supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-//         toolbar = binding.tbMain
-//         toolbar.setTitle(R.string.app_name)
-//         setSupportActionBar(toolbar)
-         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+        binding.navMenu.itemIconTintList = null;
         binding.navMenu.setNavigationItemSelectedListener {
-            when(it.itemId){
-               // R.id.item1 -> Toast.makeText(this,"janf",Toast.LENGTH_SHORT).show()
+            when (it.itemId) {
+                R.id.rate_on_playstore ->
+                    try {
+                        startActivity(
+                            Intent(
+                                ACTION_VIEW,
+                                Uri.parse("market://details?id=$packageName")
+                            )
+                        )
+                    } catch (e: ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                            )
+                        )
+                    }
+                R.id.github_repo ->
+                    startActivity(
+                        Intent(
+                            ACTION_VIEW,
+                            Uri.parse("https://github.com/avidraghav/SpaceFlightNewsApp")
+                        )
+                    )
+
+                R.id.qsol_playstore_link -> startActivity(
+                    Intent(
+                        ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=com.application.kurukshetrauniversitypapers")
+                    )
+                )
             }
+
             true
         }
 
@@ -50,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)

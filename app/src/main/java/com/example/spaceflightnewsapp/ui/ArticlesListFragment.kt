@@ -52,6 +52,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                     hideErrorMessage()
                     response.data?.let {
                         articlesAdapter.differ.submitList(it.toList())
+                       //Log.e(TAG,viewModel.skipArticle)
                     }
                 }
                 is Resource.Error -> {

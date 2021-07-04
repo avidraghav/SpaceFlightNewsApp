@@ -4,17 +4,17 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/github_profile"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="Github Profile - avidRaghav" />
-    <item
-        android:id="@+id/linkedin_profile"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="Connect on Linkedin" />
+        android:id="@+id/github_repo"
+        android:title="Github Repository"
+        android:icon ="@drawable/ic_githubrepo"/>
     <item
         android:id="@+id/rate_on_playstore"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/ic_customer_review"
         android:title="Rate Space News" />
+    <item
+        android:id="@+id/qsol_playstore_link"
+        android:icon="@drawable/ic_solution_new"
+        android:title="More apps from the developer" />
 
 
 </menu>

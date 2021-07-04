@@ -49,7 +49,7 @@
        app:itemMaxLines="2"
        android:layout_gravity="start"
        app:itemTextColor="@android:color/white"
-       app:itemIconTint="@android:color/white"
+       android:backgroundTint="@color/colorPrimaryDark"
        android:fitsSystemWindows="true"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -58,7 +58,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_below="@id/tvTitle"
                 android:layout_toRightOf="@id/ivLaunchImage"/>
-
+            <TextView
+                android:id="@+id/tvStaticTextRocket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rocket"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/white"
+                android:layout_below="@id/tvAgency"
+                android:layout_toRightOf="@id/ivLaunchImage" />
             <TextView
                 android:id="@+id/tvRocketName"
                 android:layout_width="wrap_content"
@@ -69,7 +79,7 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@android:color/white"
                 android:layout_below="@id/tvAgency"
-                android:layout_toRightOf="@id/ivLaunchImage"/>
+                android:layout_toRightOf="@id/tvStaticTextRocket"/>
             <TextView
                 android:id="@+id/tvStaticText"
                 android:layout_width="wrap_content"
