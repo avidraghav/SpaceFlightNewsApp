@@ -9,8 +9,11 @@ import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemArticlePreviewBinding
 import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem
+import com.example.spaceflightnewsapp.utils.Constants
 import com.example.spaceflightnewsapp.utils.Constants.Companion.ARTICLE_DATE_INPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
+import com.example.spaceflightnewsapp.utils.Helpers.Companion.formatTo
+import com.example.spaceflightnewsapp.utils.Helpers.Companion.toDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -37,8 +40,6 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
         companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
 
         fun bind(article: ArticlesResponseItem) {
-            val inputFormatter = DateTimeFormatter.ofPattern(ARTICLE_DATE_INPUT_FORMAT, Locale.ENGLISH)
-            val outputFormatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT, Locale.ENGLISH)
             binding.apply {
                 Glide.with(root)
                     .load(article.imageUrl)
@@ -49,9 +50,9 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                 tvSource.text = article.newsSite
                 tvTitle.text = article.title
                 tvDescription.text = article.summary
-
-                val date = LocalDateTime.parse(article.publishedAt, inputFormatter)
-                tvPublishedAt.text =  outputFormatter.format(date).toString()
+                tvPublishedAt.text = article.publishedAt
+                    .toDate(ARTICLE_DATE_INPUT_FORMAT)
+                    .formatTo(DATE_OUTPUT_FORMAT)
 
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }

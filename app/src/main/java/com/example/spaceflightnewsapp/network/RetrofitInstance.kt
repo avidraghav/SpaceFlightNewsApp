@@ -26,7 +26,7 @@ class RetrofitInstance {
         }
         private val retrofit_launchlibrary by lazy {
             Retrofit.Builder()
-                .baseUrl(BASE_URL_LAUNCHLIBRARY)
+                .baseUrl("https://ll.thespacedevs.com/2.2.0/launch/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

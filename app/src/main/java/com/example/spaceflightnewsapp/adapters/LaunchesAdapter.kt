@@ -12,6 +12,8 @@ import com.example.spaceflightnewsapp.databinding.ItemLaunchPreviewBinding
 import com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponseItem
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.LAUNCH_DATE_INPUT_FORMAT
+import com.example.spaceflightnewsapp.utils.Helpers.Companion.formatTo
+import com.example.spaceflightnewsapp.utils.Helpers.Companion.toDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -38,8 +40,6 @@ class LaunchesAdapter  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
         companion object{ var onItemClickListener : ((LaunchLibraryResponseItem) -> Unit)? = null}
 
         fun bind(launch: LaunchLibraryResponseItem) {
-            val inputFormatter = DateTimeFormatter.ofPattern(LAUNCH_DATE_INPUT_FORMAT, Locale.ENGLISH)
-            val outputFormatter = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT, Locale.ENGLISH)
             binding.apply {
                 Glide.with(root)
                     .load(launch.image)
@@ -61,9 +61,7 @@ class LaunchesAdapter  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
                 )
 
                 tvStatus.text = launch.status.name
-
-                val date = LocalDateTime.parse(launch.net, inputFormatter)
-                tvLaunchDate.text =  outputFormatter.format(date).toString()
+                tvLaunchDate.text =  launch.net.toDate(LAUNCH_DATE_INPUT_FORMAT).formatTo(DATE_OUTPUT_FORMAT)
 
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(launch) }
