@@ -21,20 +21,15 @@ import java.util.*
 
 class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding = ItemArticlePreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article: ArticlesResponseItem = differ.currentList[position]
         holder.bind(article)
     }
-
     override fun getItemCount() = differ.currentList.size
-
 
     class ViewHolder(private val binding: ItemArticlePreviewBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object{ var onItemClickListener : ((ArticlesResponseItem) -> Unit)? = null}
@@ -54,13 +49,13 @@ class ArticlesAdapter  : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
                     .toDate(ARTICLE_DATE_INPUT_FORMAT)
                     .formatTo(DATE_OUTPUT_FORMAT)
 
+
                 itemView.setOnClickListener {
                     onItemClickListener?.let { it(article) }
                 }
             }
         }
     }
-
 
     fun setOnItemClickListener(listener: (ArticlesResponseItem) -> Unit) {
         ViewHolder.onItemClickListener = listener

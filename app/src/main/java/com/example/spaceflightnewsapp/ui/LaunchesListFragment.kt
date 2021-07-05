@@ -1,5 +1,6 @@
 package com.example.spaceflightnewsapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -51,8 +52,6 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
                     hideErrorMessage()
                     response.data?.let {
                         launchesAdapter.differ.submitList(it.results.toList())
-                       //isLastPage = it.next.equals(null)
-                        Log.e(TAG,it.results.toString())
                     }
                 }
                 is Resource.Error -> {

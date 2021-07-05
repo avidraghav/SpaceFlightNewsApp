@@ -8,13 +8,13 @@
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="160dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/icon"
+        android:background="@drawable/imageview_shape"
         app:layout_constraintBottom_toTopOf="@+id/txt_welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

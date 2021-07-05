@@ -19,7 +19,6 @@ import com.example.spaceflightnewsapp.repository.AppRepository
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var toolbar: Toolbar
     lateinit var toggle: ActionBarDrawerToggle
 
     val viewModel: AppViewModel by viewModels {

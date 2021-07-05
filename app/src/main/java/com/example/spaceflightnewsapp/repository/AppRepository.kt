@@ -10,6 +10,5 @@ class AppRepository(
 ) {
     suspend fun getArticles(skipArticles : Int) = api_spaceflight.getArticles(skipArticles)
     suspend fun searchArticle(searchQuery : String,skipArticles: Int) = api_spaceflight.searchArticles(searchQuery,skipArticles)
-
     suspend fun getLaunches(skipLaunches: Int) = api_launchlibrary.getLaunches(skipLaunches)
 }

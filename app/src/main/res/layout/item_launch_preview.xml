@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/ivLaunchImage"
@@ -104,6 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Launch Date"
+                android:singleLine="true"
+                app:autoSizeTextType="uniform"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginStart="8dp"
@@ -111,6 +113,7 @@
                 android:layout_toRightOf="@id/ivLaunchImage"
                 android:layout_below="@id/tvStatus"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetAlarm"
                 android:layout_width="104dp"
                 android:layout_height="40dp"
                 android:text="More Details"

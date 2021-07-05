@@ -2,7 +2,6 @@ package com.example.spaceflightnewsapp.network
 
 import com.example.spaceflightnewsapp.utils.Constants.Companion.BASE_URL_LAUNCHLIBRARY
 import com.example.spaceflightnewsapp.utils.Constants.Companion.BASE_URL_SPACEFLIGHT
-import com.example.spaceflightnewsapp.utils.Interceptor.Companion.interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,7 +25,7 @@ class RetrofitInstance {
         }
         private val retrofit_launchlibrary by lazy {
             Retrofit.Builder()
-                .baseUrl("https://ll.thespacedevs.com/2.2.0/launch/")
+                .baseUrl("https://lldev.thespacedevs.com/2.2.0/launch/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

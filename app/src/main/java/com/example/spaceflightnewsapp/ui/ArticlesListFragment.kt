@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.adapters.ArticlesAdapter
 import com.example.spaceflightnewsapp.databinding.FragmentArticlesListBinding
-import com.example.spaceflightnewsapp.network.RetrofitInstance
-import com.example.spaceflightnewsapp.repository.AppRepository
 import com.example.spaceflightnewsapp.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.spaceflightnewsapp.utils.Resource
 
@@ -23,7 +21,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     lateinit var viewModel: AppViewModel
     lateinit var articlesAdapter: ArticlesAdapter
     private lateinit var binding: FragmentArticlesListBinding
-    //var isLoading = false
     private val TAG ="ArticlesListFragment"
 
 
@@ -52,7 +49,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                     hideErrorMessage()
                     response.data?.let {
                         articlesAdapter.differ.submitList(it.toList())
-                       //Log.e(TAG,viewModel.skipArticle)
                     }
                 }
                 is Resource.Error -> {
@@ -118,7 +114,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                 binding.rvArticles.setPadding(0, 0, 0, 0)
             }
         }
-
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
