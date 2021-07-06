@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchArticleFragment"
-        android:name="com.example.spaceflightnewsapp.ui.SearchArticleFragment"
+        android:name="com.example.spaceflightnewsapp.ui.fragments.SearchArticleFragment"
         android:label="fragment_search_article"
         tools:layout="@layout/fragment_search_article" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/articlesListFragment"
-        android:name="com.example.spaceflightnewsapp.ui.ArticlesListFragment"
+        android:name="com.example.spaceflightnewsapp.ui.fragments.ArticlesListFragment"
         android:label="fragment_articles_list"
         tools:layout="@layout/fragment_articles_list" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleDisplayFragment"
-        android:name="com.example.spaceflightnewsapp.ui.ArticleDisplayFragment"
+        android:name="com.example.spaceflightnewsapp.ui.fragments.ArticleDisplayFragment"
         android:label="ArticleDisplayFragment">
         <argument
             android:name="article"
@@ -41,6 +41,10 @@
     </fragment>
     <fragment
         android:id="@+id/launchesListFragment"
-        android:name="com.example.spaceflightnewsapp.ui.LaunchesListFragment"
+        android:name="com.example.spaceflightnewsapp.ui.fragments.LaunchesListFragment"
         android:label="LaunchesListFragment" />
+    <fragment
+        android:id="@+id/remindersListFragment"
+        android:name="com.example.spaceflightnewsapp.ui.fragments.RemindersListFragment"
+        android:label="RemindersListFragment" />
 </navigation>

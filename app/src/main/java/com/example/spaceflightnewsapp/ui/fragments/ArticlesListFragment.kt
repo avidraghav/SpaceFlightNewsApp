@@ -1,4 +1,4 @@
-package com.example.spaceflightnewsapp.ui
+package com.example.spaceflightnewsapp.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.adapters.ArticlesAdapter
 import com.example.spaceflightnewsapp.databinding.FragmentArticlesListBinding
+import com.example.spaceflightnewsapp.ui.AppViewModel
+import com.example.spaceflightnewsapp.ui.MainActivity
 import com.example.spaceflightnewsapp.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.spaceflightnewsapp.utils.Resource
 

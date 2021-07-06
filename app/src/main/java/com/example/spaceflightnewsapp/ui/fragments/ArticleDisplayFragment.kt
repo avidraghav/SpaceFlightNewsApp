@@ -1,6 +1,5 @@
-package com.example.spaceflightnewsapp.ui
+package com.example.spaceflightnewsapp.ui.fragments
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -11,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.FragmentArticleDisplayBinding
+import com.example.spaceflightnewsapp.ui.AppViewModel
+import com.example.spaceflightnewsapp.ui.MainActivity
 
 
 class ArticleDisplayFragment : Fragment(R.layout.fragment_article_display) {
