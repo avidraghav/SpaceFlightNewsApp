@@ -20,6 +20,7 @@ import com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponse
 import com.example.spaceflightnewsapp.utils.AlarmBroadCastReciever
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.LAUNCH_DATE_INPUT_FORMAT
+import com.example.spaceflightnewsapp.utils.Constants.Companion.MinutestoMiliseconds
 import com.example.spaceflightnewsapp.utils.Helpers.Companion.formatTo
 import com.example.spaceflightnewsapp.utils.Helpers.Companion.toDate
 import java.text.SimpleDateFormat
@@ -79,7 +80,8 @@ class LaunchesAdapter()  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
 //                    calendar.timeInMillis = dateTime.time
 //                     formatter.format(calendar.time)
 //                    Log.e("info",(dateTime.time).toString())
-                    setAlarm(dateTime.time,itemView.context)
+                    val timeToSetAlarm: Long = dateTime.time - MinutestoMiliseconds
+                    setAlarm(timeToSetAlarm,itemView.context)
                 }
 
                 itemView.setOnClickListener {
@@ -92,8 +94,8 @@ class LaunchesAdapter()  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
             val am : AlarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
             val i = Intent(context, AlarmBroadCastReciever::class.java)
             val pi = PendingIntent.getBroadcast(context, 0, i, 0)
-            am.set(AlarmManager.RTC_WAKEUP,timeInMilliseconds,pi)
-            Toast.makeText(context, "Alarm is set", Toast.LENGTH_SHORT).show()
+            am.setExact(AlarmManager.RTC_WAKEUP,timeInMilliseconds,pi)
+            Toast.makeText(context, "Reminder set for 15 minutes prior to launch time", Toast.LENGTH_LONG).show()
         }
 
 
