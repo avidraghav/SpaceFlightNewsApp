@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.adapters.LaunchesAdapter
 import com.example.spaceflightnewsapp.databinding.FragmentLaunchesListBinding
+import com.example.spaceflightnewsapp.repository.AppRepository
 import com.example.spaceflightnewsapp.ui.AppViewModel
 import com.example.spaceflightnewsapp.ui.MainActivity
 import com.example.spaceflightnewsapp.utils.Constants.Companion.QUERY_PAGE_SIZE

@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ActivityMainBinding
+import com.example.spaceflightnewsapp.db.ReminderDatabase
 import com.example.spaceflightnewsapp.network.RetrofitInstance
 import com.example.spaceflightnewsapp.repository.AppRepository
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     val viewModel: AppViewModel by viewModels {
         AppViewModelFactory(
             application,
-            AppRepository(RetrofitInstance.api_spaceflight, RetrofitInstance.api_launchlibrary)
+            AppRepository(ReminderDatabase(this))
         )
     }
 

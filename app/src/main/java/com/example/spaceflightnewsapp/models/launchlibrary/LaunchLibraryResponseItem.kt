@@ -1,5 +1,7 @@
 package com.example.spaceflightnewsapp.models.launchlibrary
 
+import java.io.Serializable
+
 data class LaunchLibraryResponseItem(
     val failreason: String,
     val hashtag: Any,
@@ -22,4 +24,4 @@ data class LaunchLibraryResponseItem(
     val webcast_live: Boolean,
     val window_end: String,
     val window_start: String
-)
+): Serializable

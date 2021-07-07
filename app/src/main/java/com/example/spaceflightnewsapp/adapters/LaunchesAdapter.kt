@@ -6,10 +6,13 @@ import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +20,13 @@ import com.bumptech.glide.Glide
 import com.example.spaceflightnewsapp.R
 import com.example.spaceflightnewsapp.databinding.ItemLaunchPreviewBinding
 import com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponseItem
+import com.example.spaceflightnewsapp.ui.fragments.LaunchesListFragment
 import com.example.spaceflightnewsapp.utils.AlarmBroadCastReciever
 import com.example.spaceflightnewsapp.utils.Constants.Companion.DATE_OUTPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.LAUNCH_DATE_INPUT_FORMAT
 import com.example.spaceflightnewsapp.utils.Constants.Companion.MinutestoMiliseconds
 import com.example.spaceflightnewsapp.utils.Helpers.Companion.formatTo
 import com.example.spaceflightnewsapp.utils.Helpers.Companion.toDate
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -43,9 +46,8 @@ class LaunchesAdapter()  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
 
     class ViewHolder(private val binding: ItemLaunchPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object{ var onItemClickListener : ((LaunchLibraryResponseItem) -> Unit)? = null}
-
-
         fun bind(launch: LaunchLibraryResponseItem) {
+
             binding.apply {
                 Glide.with(root)
                     .load(launch.image)
@@ -75,13 +77,29 @@ class LaunchesAdapter()  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
                     DATE_OUTPUT_FORMAT)
 
                 btnSetAlarm.setOnClickListener {
-//                    val formatter = SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS")
-//                    val calendar = Calendar.getInstance()
-//                    calendar.timeInMillis = dateTime.time
-//                     formatter.format(calendar.time)
-//                    Log.e("info",(dateTime.time).toString())
+
                     val timeToSetAlarm: Long = dateTime.time - MinutestoMiliseconds
-                    setAlarm(timeToSetAlarm,itemView.context)
+
+                    setAlarm(1625573220000,itemView.context)
+
+                    btnSetAlarm.text="Reminder Set"
+                    btnSetAlarm.setBackgroundColor(Color.GREEN)
+
+                    btnCancelAlarm.visibility = View.VISIBLE
+                    btnCancelAlarm.isEnabled=true
+
+                    val bundle = Bundle().apply {
+                        putSerializable("launch", launch)
+                    }
+                    Log.e("info",bundle.toString())
+                    it.findNavController().navigate(
+                        R.id.action_launchesListFragment_to_remindersListFragment,
+                        bundle
+                    )
+                }
+                btnCancelAlarm.setOnClickListener {
+                    cancelAlarm(itemView.context)
+
                 }
 
                 itemView.setOnClickListener {
@@ -90,15 +108,28 @@ class LaunchesAdapter()  : RecyclerView.Adapter<LaunchesAdapter.ViewHolder>(){
             }
         }
 
+        private fun cancelAlarm(context: Context) {
+            val am : AlarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+            val i = Intent(context, AlarmBroadCastReciever::class.java)
+//            i.action="Alarm Set"
+            val pi = PendingIntent.getBroadcast(context, 1, i, PendingIntent.FLAG_CANCEL_CURRENT)
+
+            val isWorking = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_NO_CREATE)!= null //just changed the flag
+            Log.e("info", "alarm is " + (if (isWorking) "" else "not") + " working...")
+
+            am.cancel(pi)
+            pi.cancel()
+            Log.e("info", "alarm is " + (if (isWorking) "" else "not") + " working...")
+        }
+
         private fun setAlarm(timeInMilliseconds: Long,context: Context) {
             val am : AlarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
             val i = Intent(context, AlarmBroadCastReciever::class.java)
-            val pi = PendingIntent.getBroadcast(context, 0, i, 0)
+//            i.action="Alarm Set"
+            val pi = PendingIntent.getBroadcast(context, 1, i, PendingIntent.FLAG_CANCEL_CURRENT)
             am.setExact(AlarmManager.RTC_WAKEUP,timeInMilliseconds,pi)
             Toast.makeText(context, "Reminder set for 15 minutes prior to launch time", Toast.LENGTH_LONG).show()
         }
-
-
     }
 
 

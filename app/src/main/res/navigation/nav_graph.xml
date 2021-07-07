@@ -42,9 +42,17 @@
     <fragment
         android:id="@+id/launchesListFragment"
         android:name="com.example.spaceflightnewsapp.ui.fragments.LaunchesListFragment"
-        android:label="LaunchesListFragment" />
+        android:label="LaunchesListFragment" >
+        <action
+            android:id="@+id/action_launchesListFragment_to_remindersListFragment"
+            app:destination="@id/remindersListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/remindersListFragment"
         android:name="com.example.spaceflightnewsapp.ui.fragments.RemindersListFragment"
-        android:label="RemindersListFragment" />
+        android:label="RemindersListFragment" >
+        <argument
+            android:name="launchReminder"
+            app:argType="com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponseItem" />
+    </fragment>
 </navigation>
