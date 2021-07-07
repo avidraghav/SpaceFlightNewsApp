@@ -1,19 +1,18 @@
 package com.example.spaceflightnewsapp.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface ReminderDao {
 
-@Insert
+@Insert(onConflict = OnConflictStrategy.REPLACE)
 suspend fun saveReminder(launch : ReminderModelClass)
 
 @Query("Select * FROM reminders ORDER by id DESC")
-suspend fun getAllReminders() : List<ReminderModelClass>
+fun getAllReminders() : List<ReminderModelClass>
+@Query("SELECT EXISTS (SELECT id FROM reminders WHERE id = :ids)")
+fun exists(ids: String) : Boolean
 @Delete
 suspend fun deleteReminder(launch: ReminderModelClass)
 }

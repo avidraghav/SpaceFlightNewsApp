@@ -15,6 +15,6 @@ class AppRepository(
     suspend fun getLaunches(skipLaunches: Int) = RetrofitInstance.api_launchlibrary.getLaunches(skipLaunches)
 
     suspend fun insert(reminder: ReminderModelClass) = db.getRemindersDao().saveReminder(reminder)
-    suspend fun getAllReminders() = db.getRemindersDao().getAllReminders()
+    fun getAllReminders() = db.getRemindersDao().getAllReminders()
     suspend fun deleteReminder(reminder: ReminderModelClass) = db.getRemindersDao().deleteReminder(reminder)
 }

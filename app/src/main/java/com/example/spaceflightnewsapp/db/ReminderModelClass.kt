@@ -6,9 +6,9 @@ import java.io.Serializable
 
 @Entity(tableName = "reminders")
 data class ReminderModelClass(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int =0,
+    @PrimaryKey
+    val id: String,
     val name: String,
-    val date: String,
-    val pendingIntentId : Long
+    val dateTime: String,
+    val pendingIntentId : Int
 ): Serializable

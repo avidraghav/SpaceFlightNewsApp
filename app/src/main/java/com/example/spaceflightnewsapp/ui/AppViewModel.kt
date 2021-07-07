@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.spaceflightnewsapp.db.ReminderModelClass
 import com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponse
 import com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponse
 import com.example.spaceflightnewsapp.repository.AppRepository
@@ -33,7 +34,7 @@ class AppViewModel(
     var launchResponse : LaunchLibraryResponse? =null
     var skipLaunches =0
 
-
+    val reminders : MutableLiveData<ReminderModelClass> =MutableLiveData()
 
     init {
         getArticlesList()
@@ -177,6 +178,5 @@ class AppViewModel(
                 else -> false
             }
     }
-
 
 }

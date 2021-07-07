@@ -64,6 +64,8 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
                 }
             }
         })
+
+
         binding.btnRetry.setOnClickListener {
             viewModel.getLaunchesList()
         }

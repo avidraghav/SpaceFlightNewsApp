@@ -14,9 +14,9 @@
         android:id="@+id/launchesListFragment"
         android:title="Launches"
         android:icon="@drawable/ic_launch"/>
-<!--    <item-->
-<!--        android:id="@+id/remindersListFragment"-->
-<!--        android:title="Reminders"-->
-<!--        android:icon="@drawable/ic_reminder"/>-->
+    <item
+        android:id="@+id/remindersListFragment"
+        android:title="Reminders"
+        android:icon="@drawable/ic_reminder"/>
 
 </menu>
