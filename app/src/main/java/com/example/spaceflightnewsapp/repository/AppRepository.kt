@@ -16,5 +16,6 @@ class AppRepository(
 
     suspend fun insert(reminder: ReminderModelClass) = db.getRemindersDao().saveReminder(reminder)
     fun getAllReminders() = db.getRemindersDao().getAllReminders()
+    fun getId(id: String) =db.getRemindersDao().exists(id)
     suspend fun deleteReminder(reminder: ReminderModelClass) = db.getRemindersDao().deleteReminder(reminder)
 }

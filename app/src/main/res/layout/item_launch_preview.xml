@@ -129,22 +129,6 @@
                 android:layout_toRightOf="@id/ivLaunchImage"
                 android:backgroundTint="@color/colorAccent"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancelAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:enabled="false"
-                android:text="Cancel It?"
-                android:textSize="12sp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:layout_marginStart="8dp"
-                android:layout_below="@id/tvLaunchDate"
-                android:layout_toRightOf="@id/btnSetAlarm"
-                android:backgroundTint="@android:color/holo_red_dark"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

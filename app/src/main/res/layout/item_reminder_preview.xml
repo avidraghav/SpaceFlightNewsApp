@@ -53,7 +53,18 @@
                 />
 
 
-
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel It?"
+                android:textSize="12sp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@android:color/holo_red_dark"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

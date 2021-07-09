@@ -162,7 +162,17 @@ class AppViewModel(
         }
         return Resource.Error(response.message())
     }
+    fun saveReminder(reminder: ReminderModelClass) = viewModelScope.launch {
+        repository.insert(reminder)
+    }
 
+    fun getReminders() = repository.getAllReminders()
+
+    fun getLaunchId(id : String) = repository.getId(id)
+
+    fun deleteReminder(reminder: ReminderModelClass) = viewModelScope.launch {
+        repository.deleteReminder(reminder)
+    }
 
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<AppApplication>().getSystemService(

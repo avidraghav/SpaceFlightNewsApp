@@ -8,9 +8,8 @@ interface ReminderDao {
 
 @Insert(onConflict = OnConflictStrategy.REPLACE)
 suspend fun saveReminder(launch : ReminderModelClass)
-
-@Query("Select * FROM reminders ORDER by id DESC")
-fun getAllReminders() : List<ReminderModelClass>
+@Query("Select * FROM reminders")
+fun getAllReminders() : LiveData<List<ReminderModelClass>>
 @Query("SELECT EXISTS (SELECT id FROM reminders WHERE id = :ids)")
 fun exists(ids: String) : Boolean
 @Delete

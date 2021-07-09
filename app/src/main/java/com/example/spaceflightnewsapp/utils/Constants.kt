@@ -13,6 +13,8 @@ class Constants {
         const val CHANNEL_NAME = "channel"
         const val NOTIFICATION_ID : Int = 0
         const val MinutestoMiliseconds : Long =900000 //15 minutes
+        const val STATUS_SET ="Reminder Set"
+        const val STATUS_CANCELLED ="CANCELLED"
 
 
     }
