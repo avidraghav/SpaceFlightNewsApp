@@ -5,18 +5,22 @@
         android:id="@+id/articlesListFragment"
         android:title="Latest News"
         android:icon="@drawable/ic_baseline_new_24"
+        android:menuCategory="secondary"
         />
     <item
         android:id="@+id/searchArticleFragment"
         android:title="Search"
-        android:icon="@drawable/ic_baseline_search_24"/>
+        android:icon="@drawable/ic_baseline_search_24"
+        android:menuCategory="secondary"/>
     <item
         android:id="@+id/launchesListFragment"
         android:title="Launches"
-        android:icon="@drawable/ic_launch"/>
+        android:icon="@drawable/ic_launch"
+        android:menuCategory="secondary"/>
     <item
         android:id="@+id/remindersListFragment"
         android:title="Reminders"
-        android:icon="@drawable/ic_reminder"/>
+        android:icon="@drawable/ic_reminder"
+        android:menuCategory="secondary"/>
 
 </menu>

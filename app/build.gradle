@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.spaceflightnewsapp"
+        applicationId "com.raghav.spacedawn"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

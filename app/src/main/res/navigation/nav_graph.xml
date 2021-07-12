@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchArticleFragment"
-        android:name="com.example.spaceflightnewsapp.ui.fragments.SearchArticleFragment"
+        android:name="com.raghav.spacedawn.ui.fragments.SearchArticleFragment"
         android:label="fragment_search_article"
         tools:layout="@layout/fragment_search_article" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/articlesListFragment"
-        android:name="com.example.spaceflightnewsapp.ui.fragments.ArticlesListFragment"
+        android:name="com.raghav.spacedawn.ui.fragments.ArticlesListFragment"
         android:label="fragment_articles_list"
         tools:layout="@layout/fragment_articles_list" >
         <action
@@ -33,15 +33,15 @@
     </fragment>
     <fragment
         android:id="@+id/articleDisplayFragment"
-        android:name="com.example.spaceflightnewsapp.ui.fragments.ArticleDisplayFragment"
+        android:name="com.raghav.spacedawn.ui.fragments.ArticleDisplayFragment"
         android:label="ArticleDisplayFragment">
         <argument
             android:name="article"
-            app:argType="com.example.spaceflightnewsapp.models.spaceflightapi.ArticlesResponseItem" />
+            app:argType="com.raghav.spacedawn.models.spaceflightapi.ArticlesResponseItem" />
     </fragment>
     <fragment
         android:id="@+id/launchesListFragment"
-        android:name="com.example.spaceflightnewsapp.ui.fragments.LaunchesListFragment"
+        android:name="com.raghav.spacedawn.ui.fragments.LaunchesListFragment"
         android:label="LaunchesListFragment" >
         <action
             android:id="@+id/action_launchesListFragment_to_remindersListFragment"
@@ -49,10 +49,10 @@
     </fragment>
     <fragment
         android:id="@+id/remindersListFragment"
-        android:name="com.example.spaceflightnewsapp.ui.fragments.RemindersListFragment"
+        android:name="com.raghav.spacedawn.ui.fragments.RemindersListFragment"
         android:label="RemindersListFragment" >
         <argument
             android:name="launchReminder"
-            app:argType="com.example.spaceflightnewsapp.models.launchlibrary.LaunchLibraryResponseItem" />
+            app:argType="com.raghav.spacedawn.models.launchlibrary.LaunchLibraryResponseItem" />
     </fragment>
 </navigation>

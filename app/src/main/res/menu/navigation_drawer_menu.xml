@@ -10,7 +10,7 @@
     <item
         android:id="@+id/rate_on_playstore"
         android:icon="@drawable/ic_customer_review"
-        android:title="Rate Space News" />
+        android:title="Rate Dawn Rocket" />
     <item
         android:id="@+id/qsol_playstore_link"
         android:icon="@drawable/ic_solution_new"
