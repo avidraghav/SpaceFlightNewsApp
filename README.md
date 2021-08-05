@@ -1,4 +1,12 @@
-App's name on Playstore is **SpaceDawn**   <img src="/Screenshots/spacedawnicon.jpg" height="100">
+App's name on Playstore is **SpaceDawn**   
+
+<img src="/Screenshots/spacedawnicon.jpg" height="100">
+
+**Info**
+1. Get the latest news about Space Flight from around the world.
+2. Set reminders for the upcoming Rocket Launches.
+3. Search for your favorite topics about Space Flight.
+
 
 **Screenshots**
 
