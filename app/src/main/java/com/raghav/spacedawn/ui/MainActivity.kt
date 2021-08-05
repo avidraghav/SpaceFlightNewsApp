@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(){
             AppRepository(ReminderDatabase(this))
         )
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
