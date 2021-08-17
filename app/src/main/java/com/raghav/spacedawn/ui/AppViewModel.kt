@@ -34,8 +34,6 @@ class AppViewModel(
     var launchResponse : LaunchLibraryResponse? =null
     var skipLaunches =0
 
-    val reminders : MutableLiveData<ReminderModelClass> =MutableLiveData()
-
     init {
         getArticlesList()
         getLaunchesList()
@@ -103,8 +101,6 @@ class AppViewModel(
                 else -> articlesList.postValue(Resource.Error("Conversion Error"))
             }
         }
-
-
 
     }
 

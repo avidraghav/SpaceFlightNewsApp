@@ -53,7 +53,7 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
         launchesAdapter.setOnItemClickListener {
             val dateTime = it.net.toDate(Constants.LAUNCH_DATE_INPUT_FORMAT)
             CoroutineScope(Dispatchers.IO).launch {
-                if(ReminderDatabase(AppApplication()).getRemindersDao().exists(it.id)) {
+                if(viewModel.getLaunchId(it.id)) {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(activity, "Already Set", Toast.LENGTH_LONG).show()
                     }
@@ -68,12 +68,17 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
 
         viewModel.launchesList.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
+               is Resource.Loading ->{
+                    showProgressBar()
+                    Log.e("inside loading","")
+                }
                 is Resource.Success -> {
                     hideProgressBar()
                     hideErrorMessage()
                     response.data?.let {
                         launchesAdapter.differ.submitList(it.results.toList())
                     }
+                    Log.d(TAG,"inside success")
                 }
                 is Resource.Error -> {
                     hideProgressBar()
@@ -83,10 +88,9 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
                             .show()
                         showErrorMessage(message)
                     }
+                    Log.e("inside error","")
                 }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
+
             }
         })
 
@@ -122,7 +126,7 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
             STATUS_SET,imageUrl
         )
         lifecycleScope.launch {
-            ReminderDatabase(AppApplication()).getRemindersDao().saveReminder(reminder)
+            viewModel.saveReminder(reminder)
         }
         am.setExact(AlarmManager.RTC_WAKEUP, timeInMilliseconds, pi)
         Toast.makeText(

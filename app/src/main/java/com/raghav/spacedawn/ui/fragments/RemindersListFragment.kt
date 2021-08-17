@@ -51,7 +51,7 @@ class RemindersListFragment : Fragment(R.layout.fragment_reminders_list) {
         pi.cancel()
         Toast.makeText(activity, "Reminder Cancelled", Toast.LENGTH_LONG).show()
         lifecycleScope.launch {
-            ReminderDatabase(Application()).getRemindersDao().deleteReminder(reminder)
+            viewModel.deleteReminder(reminder)
         }
     }
     private fun setupRecyclerView() {
