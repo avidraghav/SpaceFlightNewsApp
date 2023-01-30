@@ -9,7 +9,7 @@ class AppViewModelFactory(
     private val app : Application,
     private val repository: AppRepository
 ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(AppViewModel::class.java)){
             return AppViewModel(app,repository) as T
         }
