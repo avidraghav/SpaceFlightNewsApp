@@ -38,6 +38,15 @@ android {
     }
 }
 
+ktlint {
+    disabledRules.set(["no-wildcard-imports"])
+    reporters{
+        reporter "plain"
+        reporter "checkstyle"
+        reporter "sarif"
+    }
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
