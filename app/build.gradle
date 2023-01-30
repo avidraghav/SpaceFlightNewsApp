@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id "androidx.navigation.safeargs.kotlin"
     id 'kotlin-kapt'
-    id 'org.jlleitschuh.gradle.ktlint' version '11.1.0'
 }
 
 android {
@@ -33,17 +32,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
-    }
-}
-
-ktlint {
-    disabledRules.set(["no-wildcard-imports"])
-    reporters{
-        reporter "plain"
-        reporter "checkstyle"
-        reporter "sarif"
     }
 }
 
