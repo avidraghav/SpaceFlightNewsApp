@@ -33,14 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 }
 
 ktlint {
     disabledRules.set(["no-wildcard-imports"])
-    reporters{
+    reporters {
         reporter "plain"
         reporter "checkstyle"
         reporter "sarif"
@@ -86,4 +86,7 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.0"
+
+    ktlintRuleset "com.twitter.compose.rules:ktlint:11.1.0"
+
 }
