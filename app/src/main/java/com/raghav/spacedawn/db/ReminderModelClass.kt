@@ -10,7 +10,7 @@ data class ReminderModelClass(
     val id: String,
     val name: String,
     val dateTime: String,
-    val pendingIntentId : Int,
-    val status : String,
-    val image : String
-): Serializable
+    val pendingIntentId: Int,
+    val status: String,
+    val image: String
+) : Serializable

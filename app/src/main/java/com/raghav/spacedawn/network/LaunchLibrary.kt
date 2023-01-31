@@ -7,12 +7,9 @@ import retrofit2.http.Query
 
 interface LaunchLibrary {
 
-   @GET("upcoming")
-   suspend fun getLaunches(
-       @Query("offset")
-       offset : Int =0
-   ):Response<LaunchLibraryResponse>
-
-
-
+    @GET("upcoming")
+    suspend fun getLaunches(
+        @Query("offset")
+        offset: Int = 0
+    ): Response<LaunchLibraryResponse>
 }

@@ -19,7 +19,10 @@ import com.raghav.spacedawn.ui.MainActivity
 import com.raghav.spacedawn.utils.Constants
 import com.raghav.spacedawn.utils.Constants.Companion.DELAY_TIME
 import com.raghav.spacedawn.utils.Resource
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
 
@@ -57,31 +60,34 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
                 }
             }
         }
-        viewModel.searchArticleList.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-                is Resource.Success -> {
-                    Log.d(TAG, "inside success")
-                    hideProgressBar()
-                    hideErrorMessage()
-                    response.data?.let {
-                        articlesAdapter.differ.submitList(it)
+        viewModel.searchArticleList.observe(
+            viewLifecycleOwner,
+            Observer { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        Log.d(TAG, "inside success")
+                        hideProgressBar()
+                        hideErrorMessage()
+                        response.data?.let {
+                            articlesAdapter.differ.submitList(it)
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    Log.d(TAG, "inside failure")
-                    response.message?.let { message ->
-                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG)
-                            .show()
-                        showErrorMessage(message)
+                    is Resource.Error -> {
+                        hideProgressBar()
+                        Log.d(TAG, "inside failure")
+                        response.message?.let { message ->
+                            Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG)
+                                .show()
+                            showErrorMessage(message)
+                        }
                     }
-                }
-                is Resource.Loading -> {
-                    Log.d(TAG, "inside loading")
-                    showProgressBar()
+                    is Resource.Loading -> {
+                        Log.d(TAG, "inside loading")
+                        showProgressBar()
+                    }
                 }
             }
-        })
+        )
         binding.btnRetry.setOnClickListener {
             if (binding.etSearch.text.toString().isNotEmpty()) {
                 viewModel.getSearchArticleList(binding.etSearch.text.toString())
@@ -131,7 +137,7 @@ class SearchArticleFragment : Fragment(R.layout.fragment_search_article) {
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThanVisible && isScrolling
+                isTotalMoreThanVisible && isScrolling
             Log.d(TAG, shouldPaginate.toString())
             if (shouldPaginate) {
                 viewModel.getSearchArticleList(binding.etSearch.text.toString())
