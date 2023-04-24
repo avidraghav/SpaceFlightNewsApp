@@ -2,6 +2,8 @@ App's name on Playstore is **SpaceDawn**
 
 <img src="/Screenshots/spacedawnicon.jpg" height="100">
 
+**Note** - SpaceDawn now uses Jetpack Compose see [SpaceDawn in Compose](https://github.com/avidraghavMM/SpaceFlightNewsApp) 
+
 **Info**
 1. Get the latest news about Space Flight from around the world.
 2. Set reminders for the upcoming Rocket Launches.
