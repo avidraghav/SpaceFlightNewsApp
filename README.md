@@ -2,7 +2,10 @@ App's name on Playstore is **SpaceDawn**
 
 <img src="/Screenshots/spacedawnicon.jpg" height="100">
 
-**Note** - SpaceDawn now uses Jetpack Compose see [SpaceDawn in Compose](https://github.com/avidraghavMM/SpaceFlightNewsApp) 
+**Note** 
+- SpaceDawn now uses Jetpack Compose see [SpaceDawn in Compose](https://github.com/avidraghavMM/SpaceFlightNewsApp) 
+- SpaceDawn was removed by Playstore for not attaching the privacy policy link within the app (May 21, 2023). The app can be built and run from Android Studio or by using Gradle build tool independently.
+
 
 **Info**
 1. Get the latest news about Space Flight from around the world.
