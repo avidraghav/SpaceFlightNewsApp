@@ -16,7 +16,7 @@ import com.raghav.spacedawn.databinding.ActivityMainBinding
 import com.raghav.spacedawn.db.ReminderDatabase
 import com.raghav.spacedawn.repository.AppRepository
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
     val viewModel: AppViewModel by viewModels {
@@ -30,14 +30,13 @@ class MainActivity : AppCompatActivity(){
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       binding.bottomNavigationView.setupWithNavController(findNavController(R.id.navHostFragment))
-
+        binding.bottomNavigationView.setupWithNavController(findNavController(R.id.navHostFragment))
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.navMenu.itemIconTintList = null;
+        binding.navMenu.itemIconTintList = null
         binding.navMenu.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.rate_on_playstore ->
@@ -74,10 +73,7 @@ class MainActivity : AppCompatActivity(){
 
             true
         }
-
-
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
@@ -85,9 +81,4 @@ class MainActivity : AppCompatActivity(){
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
-
-
 }

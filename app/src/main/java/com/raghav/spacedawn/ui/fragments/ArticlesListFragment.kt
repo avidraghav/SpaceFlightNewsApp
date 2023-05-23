@@ -23,8 +23,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     lateinit var viewModel: AppViewModel
     lateinit var articlesAdapter: ArticlesAdapter
     private lateinit var binding: FragmentArticlesListBinding
-    private val TAG ="ArticlesListFragment"
-
+    private val TAG = "ArticlesListFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,29 +42,31 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             )
         }
 
-
-        viewModel.articlesList.observe(viewLifecycleOwner, Observer { response ->
-            when(response) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    hideErrorMessage()
-                    response.data?.let {
-                        articlesAdapter.differ.submitList(it.toList())
+        viewModel.articlesList.observe(
+            viewLifecycleOwner,
+            Observer { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        hideProgressBar()
+                        hideErrorMessage()
+                        response.data?.let {
+                            articlesAdapter.differ.submitList(it.toList())
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    Log.d(TAG,"inside failure")
-                    response.message?.let { message ->
-                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
-                        showErrorMessage(message)
+                    is Resource.Error -> {
+                        hideProgressBar()
+                        Log.d(TAG, "inside failure")
+                        response.message?.let { message ->
+                            Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
+                            showErrorMessage(message)
+                        }
                     }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
                 }
             }
-        })
+        )
         binding.btnRetry.setOnClickListener {
             viewModel.getArticlesList()
         }
@@ -108,8 +109,8 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
+                isTotalMoreThanVisible && isScrolling
+            if (shouldPaginate) {
                 viewModel.getArticlesList()
                 isScrolling = false
             } else {
@@ -118,7 +119,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         }
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }

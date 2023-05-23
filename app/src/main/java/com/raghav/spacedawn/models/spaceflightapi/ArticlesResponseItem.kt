@@ -14,4 +14,4 @@ data class ArticlesResponseItem(
     val title: String,
     val updatedAt: String,
     val url: String
-): Serializable
+) : Serializable

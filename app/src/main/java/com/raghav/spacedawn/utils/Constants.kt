@@ -1,7 +1,7 @@
 package com.raghav.spacedawn.utils
 
 class Constants {
-    companion object{
+    companion object {
         const val BASE_URL_SPACEFLIGHT = "https://api.spaceflightnewsapi.net/v3/"
         const val BASE_URL_LAUNCHLIBRARY = "https://ll.thespacedevs.com/2.2.0/launch/"
         const val QUERY_PAGE_SIZE = 10
@@ -11,11 +11,9 @@ class Constants {
         const val DATE_OUTPUT_FORMAT = "MMMM dd,yyyy HH:mm z"
         const val CHANNEL_ID = "id"
         const val CHANNEL_NAME = "channel"
-        const val NOTIFICATION_ID : Int = 0
-        const val MinutestoMiliseconds : Long =900000 //15 minutes
-        const val STATUS_SET ="Reminder Set"
-        const val STATUS_CANCELLED ="CANCELLED"
-
-
+        const val NOTIFICATION_ID: Int = 0
+        const val MinutestoMiliseconds: Long = 900000 // 15 minutes
+        const val STATUS_SET = "Reminder Set"
+        const val STATUS_CANCELLED = "CANCELLED"
     }
 }

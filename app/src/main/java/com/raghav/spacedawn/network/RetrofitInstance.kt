@@ -38,10 +38,5 @@ class RetrofitInstance {
         val api_launchlibrary by lazy {
             retrofit_launchlibrary.create(LaunchLibrary::class.java)
         }
-
-
     }
-
-
-
 }

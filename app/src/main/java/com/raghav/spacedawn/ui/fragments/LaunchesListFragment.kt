@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.raghav.spacedawn.R
 import com.raghav.spacedawn.adapters.LaunchesAdapter
 import com.raghav.spacedawn.databinding.FragmentLaunchesListBinding
-import com.raghav.spacedawn.db.ReminderDatabase
 import com.raghav.spacedawn.db.ReminderModelClass
 import com.raghav.spacedawn.models.launchlibrary.LaunchLibraryResponseItem
 import com.raghav.spacedawn.ui.AppViewModel
 import com.raghav.spacedawn.ui.MainActivity
 import com.raghav.spacedawn.utils.AlarmBroadCastReciever
-import com.raghav.spacedawn.utils.AppApplication
 import com.raghav.spacedawn.utils.Constants
 import com.raghav.spacedawn.utils.Constants.Companion.MinutestoMiliseconds
 import com.raghav.spacedawn.utils.Constants.Companion.QUERY_PAGE_SIZE
@@ -53,7 +51,7 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
         launchesAdapter.setOnItemClickListener {
             val dateTime = it.net.toDate(Constants.LAUNCH_DATE_INPUT_FORMAT)
             CoroutineScope(Dispatchers.IO).launch {
-                if(viewModel.getLaunchId(it.id)) {
+                if (viewModel.getLaunchId(it.id)) {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(activity, "Already Set", Toast.LENGTH_LONG).show()
                     }
@@ -66,34 +64,35 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
             }
         }
 
-        viewModel.launchesList.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-               is Resource.Loading ->{
-                    showProgressBar()
-                    Log.e("inside loading","")
-                }
-                is Resource.Success -> {
-                    hideProgressBar()
-                    hideErrorMessage()
-                    response.data?.let {
-                        launchesAdapter.differ.submitList(it.results.toList())
+        viewModel.launchesList.observe(
+            viewLifecycleOwner,
+            Observer { response ->
+                when (response) {
+                    is Resource.Loading -> {
+                        showProgressBar()
+                        Log.e("inside loading", "")
                     }
-                    Log.d(TAG,"inside success")
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    Log.d(TAG, "inside failure")
-                    response.message?.let { message ->
-                        Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG)
-                            .show()
-                        showErrorMessage(message)
+                    is Resource.Success -> {
+                        hideProgressBar()
+                        hideErrorMessage()
+                        response.data?.let {
+                            launchesAdapter.differ.submitList(it.results.toList())
+                        }
+                        Log.d(TAG, "inside success")
                     }
-                    Log.e("inside error","")
+                    is Resource.Error -> {
+                        hideProgressBar()
+                        Log.d(TAG, "inside failure")
+                        response.message?.let { message ->
+                            Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG)
+                                .show()
+                            showErrorMessage(message)
+                        }
+                        Log.e("inside error", "")
+                    }
                 }
-
             }
-        })
-
+        )
 
         binding.btnRetry.setOnClickListener {
             viewModel.getLaunchesList()
@@ -122,8 +121,12 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
         )
 
         val reminder = ReminderModelClass(
-            idOfLaucnh, nameOfLaunch, dateTimeOfLaunch, pendingIntentId,
-            STATUS_SET,imageUrl
+            idOfLaucnh,
+            nameOfLaunch,
+            dateTimeOfLaunch,
+            pendingIntentId,
+            STATUS_SET,
+            imageUrl
         )
         lifecycleScope.launch {
             viewModel.saveReminder(reminder)
@@ -134,8 +137,6 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
             "Reminder set for 15 minutes prior to launch time",
             Toast.LENGTH_LONG
         ).show()
-
-
     }
 
     private fun hideProgressBar() {
@@ -178,7 +179,7 @@ class LaunchesListFragment : Fragment(R.layout.fragment_launches_list) {
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThanVisible && isScrolling
+                isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
                 viewModel.getLaunchesList()
                 isScrolling = false

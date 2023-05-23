@@ -24,4 +24,4 @@ data class LaunchLibraryResponseItem(
     val webcast_live: Boolean,
     val window_end: String,
     val window_start: String
-): Serializable
+) : Serializable
