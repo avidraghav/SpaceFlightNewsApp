@@ -3,7 +3,7 @@ App's name on Playstore is **SpaceDawn**
 <img src="/Screenshots/spacedawnicon.jpg" height="100">
 
 **Note** 
-- SpaceDawn now uses Jetpack Compose see [SpaceDawn in Compose](https://github.com/avidraghavMM/SpaceDawn) 
+- SpaceDawn now uses Jetpack Compose see [SpaceDawn in Compose](https://github.com/avidraghav/SpaceDawn) 
 - SpaceDawn was removed by Playstore for not attaching the privacy policy link within the app (May 21, 2023). The app can be built and run from Android Studio or by using Gradle build tool independently.
 
 
